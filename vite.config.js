@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   base: '/csyprotfolio/', // 必须与仓库名一致
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     emptyOutDir: true     // 构建前清空目录
   }
 })
