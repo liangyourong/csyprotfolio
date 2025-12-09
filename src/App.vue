@@ -6,39 +6,44 @@ const getImageUrl = (index) => {
 </script>
 
 <template>
-  <!-- 循环渲染30张图片，外层容器可选（用于统一控制） -->
-  <div class="image-list">
-    <div v-for="i in 30" :key="i" class="image-wrapper">
+  <!-- 外层容器：统一控制图片列表的居中与宽度 -->
+  <div class="image-container">
+    <div v-for="i in 33" :key="i" class="image-item">
       <img 
         :src="getImageUrl(i)" 
         :alt="`图片 ${i}`" 
-        class="full-width-img"
+        class="custom-img"
       />
     </div>
   </div>
 </template>
 
 <style scoped>
-/* 重置默认样式，消除内外边距影响 */
-.image-list {
-  margin: 0;
+/* 外层容器：确保图片列表整体居中，宽度为屏幕80% */
+.image-container {
+  width: 80vw; /* 核心：宽度占屏幕80%（视口宽度单位） */
+  margin: 0 auto; /* 核心：水平居中 */
   padding: 0;
 }
 
-/* 图片外层包裹器（可选，用于隔离每张图片） */
-.image-wrapper {
-  width: 100vw; /* 占满屏幕宽度（也可用100%） */
-  margin: 0 auto; /* 居中（针对非100%宽度场景） */
-  /* 可选：添加图片间距 */
-  margin-bottom: 8px;
+/* 每张图片的包裹项（可选：添加图片间距） */
+.image-item {
+  width: 100%; /* 继承外层80%屏幕宽度 */
+  margin-bottom: 16px; /* 可选：图片之间的间距，可根据需求调整 */
 }
 
 /* 核心图片样式 */
-.full-width-img {
-  width: 100%; /* 宽度强制占满父容器（屏幕宽度） */
-  height: auto; /* 高度自动按原图比例适配（关键属性） */
-  display: block; /* 消除图片默认的行内间隙（底部空白） */
-  /* 可选：防止图片拉伸变形，保持比例 */
-  object-fit: contain; 
+.custom-img {
+  width: 100%; /* 宽度占满父容器（即屏幕80%） */
+  height: auto; /* 关键：高度按原图宽高比自动适配 */
+  display: block; /* 消除图片默认的行内底部空白间隙 */
+  object-fit: contain; /* 可选：确保图片完整显示（不裁剪、不拉伸） */
+}
+
+/* 可选：响应式优化（小屏幕下调整宽度） */
+@media (max-width: 768px) {
+  .image-container {
+    width: 90vw; /* 移动端占屏幕90%，体验更好 */
+  }
 }
 </style>
